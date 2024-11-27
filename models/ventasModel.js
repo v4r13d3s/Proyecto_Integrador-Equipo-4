@@ -1,18 +1,18 @@
-const {db} = require('../config/database');
+const pool = require('../config/database');
 
 class Ventas {
   static async findAll() {
-    const result = await db.query('SELECT * FROM Ventas');
+    const result = await pool.query('SELECT * FROM Ventas');
     return result.rows;
   }
 
   static async findById(folio) {
-    const result = await db.query('SELECT * FROM Ventas WHERE folio = $1', [folio]);
+    const result = await pool.query('SELECT * FROM Ventas WHERE folio = $1', [folio]);
     return result.rows[0];
   }
 
   static async create(data) {
-    const result = await db.query(
+    const result = await pool.query(
       'INSERT INTO Ventas (monto, idempleado, fechaVenta) VALUES ($1, $2, NOW()) RETURNING *',
       [data.monto, data.idempleado] 
     );
@@ -20,7 +20,7 @@ class Ventas {
   }
 
   static async update(folio, data) {
-    const result = await db.query(
+    const result = await pool.query(
       'UPDATE Ventas SET monto = $1, idempleado = $2 WHERE folio = $3 RETURNING *',
       [data.monto, data.idempleado, folio]
     );
@@ -28,7 +28,7 @@ class Ventas {
   }
 
   static async delete(folio) {
-    const result = await db.query('DELETE FROM Ventas WHERE folio = $1 RETURNING *', [folio]);
+    const result = await pool.query('DELETE FROM Ventas WHERE folio = $1 RETURNING *', [folio]);
     return result.rows[0];
   }
 }
