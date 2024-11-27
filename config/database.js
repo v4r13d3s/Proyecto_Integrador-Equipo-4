@@ -19,4 +19,4 @@ pool.connect()
     process.exit(1);
   })
 
-module.exports = ( pool );
+module.exports = { pool };
