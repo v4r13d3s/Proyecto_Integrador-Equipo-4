@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: papeleria_postgres
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: papeleria
+    volumes:
+      - ./backups:/docker-entrypoint-initdb.d
+    ports:
+      - "5435:5432"
+    networks:
+      - papeleria-network
+
+  api:
+    build: .
+    container_name: papeleria_api
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres   
+      DB_USER: postgres
+      DB_PASSWORD: 123456
+      DB_NAME: papeleria
+      APP_PORT: 3006
+    ports:
+      - "3006:3006"
+    networks:
+      - papeleria-network
+
+networks:
+  papeleria-network:
+    driver: bridge
