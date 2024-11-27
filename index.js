@@ -14,6 +14,8 @@ const ventasRoutes = require('./routes/ventasRoutes');
 const swaggerDocs = require('./config/swagger');
 require('dotenv').config(); 
 
+const { pool } = require('./config/database');
+
 const app = express();
 app.use(express.json());
 
