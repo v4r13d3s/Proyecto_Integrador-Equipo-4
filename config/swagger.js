@@ -13,7 +13,7 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:'+process.env.APP_PORT , //URL base de datos del servidor de la API
+                url: "https://capiteam.up.railway.app/" ,
             },
         ],
     },
@@ -25,8 +25,6 @@ const swaggerSpec = swaggerJsdoc(options);
 const swaggerDocs = (app) => {
     app.use('/api-docs', swaggerUi.serve,
         swaggerUi.setup(swaggerSpec));
-    console.log('Swagger docs available at http://localhost:'+
-        process.env.APP_PORT+'/api-docs');
 };
 
 module.exports = swaggerDocs;
